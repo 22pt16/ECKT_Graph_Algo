@@ -6,6 +6,8 @@ from src.generalization import generalize_attributes
 from src.tcloseness import check_t_closeness
 from src.evaluation import cluster_sizes, anonymity_score, information_loss
 from src.visualization import plot_cluster_sizes
+from src.visualization import plot_cluster_distribution
+
 
 import networkx as nx
 import pandas as pd
@@ -61,4 +63,17 @@ print("Clusters satisfying t-closeness:", len(valid_clusters))
 
 df.to_csv("output/anonymized_data.csv", index=False)
 print("Output saved as : output/anonymized_data.csv ")
+
+summary = {
+    "nodes": G.number_of_nodes(),
+    "edges": G.number_of_edges(),
+    "clusters": df["cluster"].nunique(),
+    "avg_cluster_size": anonymity_score(df),
+    "clusters_satisfying_t_closeness": len(valid_clusters),
+    "information_loss": information_loss(df)
+}
+
+summary_df = pd.DataFrame([summary])
+summary_df.to_csv("output/summary_metrics.csv", index=False)
 plot_cluster_sizes(cluster_sizes(df))
+plot_cluster_distribution(cluster_sizes(df))

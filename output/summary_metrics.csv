@@ -1,0 +1,2 @@
+nodes,edges,clusters,avg_cluster_size,clusters_satisfying_t_closeness,information_loss
+4039,88234,20,201.95,15,0.0024523496716656315
