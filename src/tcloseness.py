@@ -23,7 +23,7 @@ def check_t_closeness(df, sensitive_col, t):
         if diff <= t:
             
             valid_clusters.append(cluster)
-        #print("Global distribution:", global_dist.to_dict())
+        print("Global distribution:", global_dist.to_dict())
         print("Cluster", cluster, "diff =", diff)
 
     valid_clusters = [int(c) for c in valid_clusters]    

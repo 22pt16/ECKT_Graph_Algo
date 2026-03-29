@@ -46,3 +46,11 @@ def perform_clustering(df, k):
     df["cluster"] = assigned
 
     return df
+
+
+def show_distance_matrix(df):
+    features = df[["age","gender","location"]].values
+    sample = features[:5]  # small sample
+    dist_matrix = np.linalg.norm(sample[:, None] - sample, axis=2)
+    print("\nSample Distance Matrix (5 nodes):")
+    print(dist_matrix)
