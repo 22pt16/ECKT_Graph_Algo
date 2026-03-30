@@ -6,7 +6,7 @@ from src.generate_attributes import create_node_attributes
 from src.clustering import perform_clustering, show_distance_matrix
 from src.kanonymity import enforce_k_anonymity
 from src.generalization import generalize_attributes
-from src.tcloseness import check_t_closeness
+from src.tcloseness import enforce_t_closeness
 from src.evaluation import cluster_sizes, anonymity_score, information_loss
 from src.visualization import plot_cluster_sizes, plot_cluster_distribution
 
@@ -58,7 +58,6 @@ print("Attributes:", df.columns.tolist())
 print("\nRunning K-means++ clustering...")
 df = perform_clustering(df, k=NUM_CLUSTERS)
 
-# Optional (for explanation)
 show_distance_matrix(df)
 
 
@@ -67,11 +66,6 @@ show_distance_matrix(df)
 # =========================
 print("\nApplying k-anonymity...")
 df = enforce_k_anonymity(df, k=K)
-
-
-# =========================
-# GENERALIZATION
-# =========================
 print("\nGeneralizing attributes...")
 df = generalize_attributes(df)
 
@@ -80,7 +74,7 @@ df = generalize_attributes(df)
 # T-CLOSENESS
 # =========================
 print("\nChecking t-closeness...")
-valid_clusters = check_t_closeness(
+valid_clusters = enforce_t_closeness(
     df,
     sensitive_col="income_category",
     t=T
